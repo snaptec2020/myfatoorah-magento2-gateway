@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @var \Magento\Payment\Block\Info $block
+ * @see \Magento\Payment\Block\Info
+ */
+use MyFatoorah\Library\MyFatoorah;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+
+$scope       = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+$scopeConfig = ObjectManager::getInstance()->create(ScopeConfigInterface::class);
+
+$istest  = $scopeConfig->getValue('payment/myfatoorah_payment/is_testing', $scope) ?? true;
+$country = $scopeConfig->getValue('payment/myfatoorah_payment/countryMode', $scope) ?? 'KWT';
+
+$countries = MyFatoorah::getMFCountries();
+$domain    = ($istest) ? $countries[$country]['testPortal'] : $countries[$country]['portal'];
+
+$formScriptURL = "$domain/cardview/v2/session.js";
+$apScriptURL   = "$domain/applepay/v2/applepay.js";
+$gpScriptURL   = "$domain/googlepay/v1/googlepay.js";
+?>
+<script>
+    require.config({
+        map: {
+            '*': {
+                'mfSessionFile': '<?= $block->escapeHtml($formScriptURL); ?>',
+                'mfAppleFile': '<?= $block->escapeHtml($apScriptURL); ?>',
+                'mfGoogleFile': '<?= $block->escapeHtml($gpScriptURL); ?>'
+            }
+        }
+    });
+</script>

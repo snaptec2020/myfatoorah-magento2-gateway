@@ -1,0 +1,46 @@
+{
+    "name": "myfatoorah/magento2-gateway",
+    "description": "The official MyFatoorah Payment Gateway for Magento2.",
+    "version": "2.2.7",
+    "type": "magento2-module",
+    "license": [
+        "GPL-3.0-only"
+    ],
+    "require": {
+        "myfatoorah/library": "~2.2.4"
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "MyFatoorah\\Gateway\\": ""
+        }
+    },
+    "keywords": [
+        "MyFatoorah",
+        "My Fatoorah",
+        "Fatoorah",
+        "gateway",
+        "payment",
+        "Shipping",
+        "api",
+        "commerce",
+        "Magento2"
+    ],
+    "homepage": "https://myfatoorah.com/",
+    "authors": [
+        {
+            "name": "MyFatoorah Plugin Team",
+            "email": "plugins@myfatoorah.com"
+        },
+        {
+            "name": "Nermeen Shoman",
+            "email": "nshoman@myfatoorah.com",
+            "role": "Senior Software Engineer"
+        },
+        {
+            "name": "Rasha Saeed",
+            "email": "rsaeed@myfatoorah.com",
+            "role": "Senior Software Engineer"
+        }
+    ]
+}

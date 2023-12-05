@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="myfatoorah_invoice" resource="default" engine="innodb" comment="MyFatoorah Invoice Table" charset="utf8">
+        <column name="id"                       xsi:type="bigint"     identity="true" unsigned="true"                   nullable="false"    comment=""/>
+        <column name="order_id"                 xsi:type="varchar"    length="32"                                       nullable="false"    comment="Magento2 Order Id"/>
+        <column name="gateway_name"             xsi:type="varchar"    length="100" default="MyFatoorah"                 nullable="false"    comment="The Payment Gateway Name"/>
+        <column name="invoice_id"               xsi:type="varchar"    length="32"                                       nullable="true"     comment="MyFatoorah Invoice Id"/>
+        <column name="payment_id"               xsi:type="varchar"    length="32"                                       nullable="true"     comment="The Payment ID"/>
+        <column name="invoice_url"              xsi:type="varchar"    length="255"                                      nullable="true"     comment="The Invoice or Payment URL"/>
+        <column name="invoice_reference"        xsi:type="varchar"    length="32"                                       nullable="true"     comment="The Invoice Reference"/>
+        <column name="reference_id"             xsi:type="varchar"    length="32"                                       nullable="true"     comment="The Reference ID"/>
+        <column name="track_id"                 xsi:type="varchar"    length="32"                                       nullable="true"     comment="The Track ID"/>
+        <column name="authorization_id"         xsi:type="varchar"    length="32"                                       nullable="true"     comment="The Authorization ID"/>
+        <column name="gateway_transaction_id"   xsi:type="varchar"    length="32"                                       nullable="true"     comment="The used Payment Gateway Transaction ID"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

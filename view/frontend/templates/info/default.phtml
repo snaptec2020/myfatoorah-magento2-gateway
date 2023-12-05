@@ -1,0 +1,41 @@
+<?php
+/**
+ * @var \Magento\Payment\Block\Info $block
+ * @see \Magento\Payment\Block\Info
+ */
+$payment = $block->getMFInformation();
+$title   = $block->escapeHtml($block->getMethod()->getTitle());
+?>
+<dl class="payment-method">
+    <dt class="title"><?= /* @noEscape */ $title ?></dt>
+    <?php if ($payment): ?>
+        <dd class="content">
+            <table class="data table">
+                <caption class="table-caption"><?= /* @noEscape */ $title ?></caption>
+
+                <tr>
+                    <th scope="row"><?= $block->escapeHtml('Invoice ID'); ?>:</th>
+                    <td>
+                        <?php if (isset($payment['invoice']['url'])): ?>
+                            <a href="<?= $block->escapeHtml($payment['invoice']['url']); ?>" target="_blank">
+                                <?= $block->escapeHtml($payment['invoice']['id']); ?>
+                            </a>
+                        <?php else: ?>
+                            <?= $block->escapeHtml($payment['invoice']['id']); ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+
+                <?php foreach ($payment['info'] as $label => $value): ?>
+                    <tr>
+                        <th scope="row"><?= $block->escapeHtml($label); ?></th>
+                        <td>
+                            <?= $block->escapeHtml($value); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </dd>
+    <?php endif; ?>
+</dl>
+<?= $block->getChildHtml() ?>

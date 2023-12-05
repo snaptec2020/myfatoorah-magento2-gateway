@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <myfatoorah_payment>
+                <model>MyFatoorahPaymentFacade</model>
+                <force_myfatoorah>0</force_myfatoorah>
+                
+                <active>0</active> <!--Plugin disabled by default. The user must configure it first.-->
+                <title>MyFatoorah Payment</title>
+                <countryMode>KWT</countryMode>
+                <is_testing>1</is_testing>
+                <api_key></api_key>
+                <save_card>0</save_card>
+                <listInvoiceItems>1</listInvoiceItems>
+                <list_options>multigateways</list_options>
+                <isApplePayRegistered>0</isApplePayRegistered>
+                <myfatoorah_approved_order_status>processing</myfatoorah_approved_order_status>
+                <webhookSecretKey></webhookSecretKey>
+                <failurePage>cart</failurePage>
+                <automatic_invoice>1</automatic_invoice>
+                <email_customer>1</email_customer>
+                <sort_order>0</sort_order>
+
+                <payment_action>initialize</payment_action> <!--Important: read Magento\Sales\Model\Order-->
+                <can_initialize>1</can_initialize> <!--Important: read Magento\Sales\Model\Order-->
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>0</can_authorize>
+                <can_capture>0</can_capture>
+                <can_capture_partial>1</can_capture_partial>
+                <can_authorize_vault>0</can_authorize_vault>
+                <can_capture_vault>1</can_capture_vault>
+                <can_use_internal>1</can_use_internal>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_void>0</can_void>
+                <can_cancel>0</can_cancel>
+                <can_edit>0</can_edit>
+                <can_review_payment>1</can_review_payment>
+                <can_deny_payment>1</can_deny_payment>
+            </myfatoorah_payment>
+        </payment>
+        <carriers>
+            <myfatoorah_shipping>
+                <model>MyFatoorah\Gateway\Model\Carrier\Shipping</model>
+                <name>Shipping</name>
+                
+                <active>0</active> <!--Plugin disabled by default. The user must configure it first.-->
+                <title>MyFatoorah</title>
+                <methods></methods>
+                <sallowspecific>0</sallowspecific>
+                <specificcountry></specificcountry>
+                <showmethod>0</showmethod>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <sort_order>0</sort_order>
+            </myfatoorah_shipping>
+        </carriers>
+    </default>
+</config>
