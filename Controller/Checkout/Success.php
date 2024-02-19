@@ -22,6 +22,7 @@ use Exception as MFException;
 
 class Success extends MyfatoorahAction
 {
+
     /**
      * @var boolean
      */
@@ -90,6 +91,11 @@ class Success extends MyfatoorahAction
      * @var \MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus
      */
     protected $mfObj;
+
+    /**
+     * @var string
+     */
+    protected $orderId;
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -168,10 +174,14 @@ class Success extends MyfatoorahAction
         if (!$error) {
             //redirect to success page
             $this->messageManager->addSuccessMessage(__('Your payment is complete'));
-            return $this->_redirect('checkout/onepage/success', ['_secure' => $this->getRequest()->isSecure()]);
+            $param = [
+                '_query'  => "orderId=$this->orderId",
+                '_secure' => $this->getRequest()->isSecure(),
+            ];
+            return $this->_redirect('checkout/onepage/success', $param);
         }
 
-        return $this->redirectToCartPage($error);
+        return $this->redirectToCartPage($error, $this->orderId);
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -226,6 +236,8 @@ class Success extends MyfatoorahAction
         if (!$order) {
             throw new MFException('Order not found.');
         }
+
+        $this->orderId = $order->getRealOrderId();
 
         //order is not pending or canceled
         $status = $order->getState();
@@ -287,7 +299,7 @@ class Success extends MyfatoorahAction
         $transaction        = $data->focusTransaction;
         $this->isAddHistory = false;
 
-        if (empty($itemData['payment_id']) || $itemData['payment_id'] != $transaction->PaymentId) {
+        if ($data->InvoiceStatus == 'Paid' || (empty($itemData['payment_id']) || $itemData['payment_id'] != $transaction->PaymentId)) {
             $item->setData('gateway_name', $transaction->PaymentGateway);
             $item->setData('gateway_transaction_id', $transaction->TransactionId);
             $item->setData('payment_id', $transaction->PaymentId);
