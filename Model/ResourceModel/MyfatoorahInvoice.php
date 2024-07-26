@@ -4,6 +4,7 @@ namespace MyFatoorah\Gateway\Model\ResourceModel;
 
 class MyfatoorahInvoice extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+
     /**
      * @inheritdoc
      */

@@ -14,6 +14,7 @@ use Exception as MFException;
 
 class Checkout
 {
+
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
@@ -280,8 +281,8 @@ class Checkout
 
         //------------------------------
         //Tax
-        $tax1 = $order->getBaseTotalDue() - $amount - $mfShipping;
-        $tax  = round($tax1 * $currencyRate, 3);
+        $tax1 = round($order->getBaseTotalDue() * $currencyRate, 3);
+        $tax  = round($tax1 - $amount - $mfShipping, 3);
         if ($tax) {
             $invoiceItemsArr[] = [
                 'ItemName'  => 'Tax Amount', 'Quantity'  => '1', 'UnitPrice' => "$tax",

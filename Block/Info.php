@@ -12,6 +12,7 @@ use MyFatoorah\Gateway\Model\ResourceModel\MyfatoorahInvoice\CollectionFactory;
  */
 class Info extends ConfigurableInfo
 {
+
     /**
      * Template path
      *
@@ -79,7 +80,7 @@ class Info extends ConfigurableInfo
             $data['Transaction ID'] = $item['gateway_transaction_id'];
         }
         if (isset($item['payment_id'])) {
-            $data['Payment ID'] = $item['payment_id'];
+            $data['Payment ID']  = $item['payment_id'];
             $data['Invoice URL'] = $this->updateInvoiceUrl($item['invoice_url'], $item['payment_id']);
         }
         return $data;
@@ -125,7 +126,7 @@ class Info extends ConfigurableInfo
         }
         if (isset($item['payment_id'])) {
             $payment['info']['Payment ID'] = $item['payment_id'];
-            $payment['invoice']['url'] = $this->updateInvoiceUrl($item['invoice_url'], $item['payment_id']);
+            $payment['invoice']['url']     = $this->updateInvoiceUrl($item['invoice_url'], $item['payment_id']);
         }
 
         return $payment;

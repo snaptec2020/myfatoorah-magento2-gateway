@@ -4,6 +4,8 @@
 "Redirect to Checkout Onepage Failure Page","Redirect to Checkout Onepage Failure Page"
 "Redirect to MyFatoorah Invoice Page","Redirect to MyFatoorah Invoice Page"
 "List All Enabled Gateways in Checkout Page","List All Enabled Gateways in Checkout Page"
+"Default Currency","Default Currency"
+"Website Currency","Website Currency"
 DHL,DHL
 Aramex,Aramex
 "Warning: MyFatoorah Shipping is disabled","Warning: MyFatoorah Shipping is disabled"
@@ -32,6 +34,7 @@ Title,Title
 "Order Status","Order Status"
 "Webhook Secret Key","Webhook Secret Key"
 "Payment Failure Page","Payment Failure Page"
+"MyFatoorah Invoice Currency","MyFatoorah Invoice Currency"
 "Automatic Invoice","Automatic Invoice"
 "Email Customer","Email Customer"
 "Sort Order","Sort Order"

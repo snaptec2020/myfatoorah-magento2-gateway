@@ -9,6 +9,7 @@ use Magento\Framework\Exception\LocalizedException as AMageExcept;
  */
 class StockManagementPlugin
 {
+
     /**
      * @var \Magento\CatalogInventory\Api\StockConfigurationInterface
      */

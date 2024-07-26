@@ -85,7 +85,12 @@
                     <label>Payment From Specific Countries</label>
                     <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
                 </field>-->
-                                
+                    
+                <field id="invoiceCurrency" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>MyFatoorah Invoice Currency</label>
+                    <tooltip>Optional: select whether to create the MyFatoorah invoice using the default currency scope or the website scope.</tooltip>
+                    <source_model>MyFatoorah\Gateway\Model\Config\Source\InvoiceCurrency</source_model>
+                </field>           
                 <field id="automatic_invoice" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Automatic Invoice</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

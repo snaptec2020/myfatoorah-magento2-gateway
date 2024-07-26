@@ -16,6 +16,7 @@ use Exception as MFException;
  */
 class CleanExpiredOrdersPlugin
 {
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */

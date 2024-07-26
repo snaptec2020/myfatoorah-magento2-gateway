@@ -8,6 +8,7 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
+
     /**
      * @inheritdoc
      */

@@ -299,7 +299,7 @@ class Success extends MyfatoorahAction
         $transaction        = $data->focusTransaction;
         $this->isAddHistory = false;
 
-        if ($data->InvoiceStatus == 'Paid' || (empty($itemData['payment_id']) || $itemData['payment_id'] != $transaction->PaymentId)) {
+        if (empty($itemData['payment_id']) || $itemData['payment_id'] != $transaction->PaymentId) {
             $item->setData('gateway_name', $transaction->PaymentGateway);
             $item->setData('gateway_transaction_id', $transaction->TransactionId);
             $item->setData('payment_id', $transaction->PaymentId);

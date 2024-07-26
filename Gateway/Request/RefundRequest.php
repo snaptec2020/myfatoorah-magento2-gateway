@@ -8,6 +8,7 @@ use Magento\Payment\Gateway\Request\BuilderInterface;
 
 class RefundRequest implements BuilderInterface
 {
+
     /**
      * @var Config
      */

@@ -14,6 +14,7 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
 
 class ValidateApplePayRegistered extends MFValue
 {
+
     /**
      * @var UrlInterface
      */

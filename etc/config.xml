@@ -19,6 +19,7 @@
                 <myfatoorah_approved_order_status>processing</myfatoorah_approved_order_status>
                 <webhookSecretKey></webhookSecretKey>
                 <failurePage>cart</failurePage>
+                <invoiceCurrency>default</invoiceCurrency>
                 <automatic_invoice>1</automatic_invoice>
                 <email_customer>1</email_customer>
                 <sort_order>0</sort_order>

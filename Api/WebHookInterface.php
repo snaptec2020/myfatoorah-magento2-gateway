@@ -7,6 +7,7 @@ namespace MyFatoorah\Gateway\Api;
  */
 interface WebHookInterface
 {
+
     /**
      * Webhook feature will recover the lost orders due to connection loss or delayed callbacks.
      *

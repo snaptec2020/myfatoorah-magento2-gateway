@@ -14,6 +14,7 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
 
 class ValidatePaymentConfigData extends MFValue
 {
+
     /**
      * @var WriterInterface
      */

@@ -9,6 +9,7 @@ use Magento\Sales\Model\Order;
 
 class ClickOnBack implements ObserverInterface
 {
+
     /**
      * @var Session
      */

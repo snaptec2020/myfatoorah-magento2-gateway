@@ -18,6 +18,7 @@ use Exception as MFException;
 
 class Index extends MyfatoorahAction
 {
+
     /**
      *
      * @var Checkout
@@ -107,11 +108,11 @@ class Index extends MyfatoorahAction
      * Get the MyFatoorah Post Data
      *
      * @param  Order  $order
-     * @param  string $gateway
+     *
      * @return array
      * @throws MFException
      */
-    private function getPayload($order, $gateway = null)
+    private function getPayload($order)
     {
         $orderId = $order->getRealOrderId();
         $store   = $order->getStore();
@@ -145,7 +146,7 @@ class Index extends MyfatoorahAction
         $lang = $this->locale->getLangCode();
 
         $phone = MyFatoorah::getPhone($phoneNo);
-        $url   = $this->getMfCheckoutUrl('process');
+        $url   = $this->getMfCheckoutUrl('process') . "?orderId=$orderId";
         //or
         //$url   = $store->getBaseUrl() . $this->mfConfig->getCode() . '/checkout/process';
 
@@ -164,7 +165,7 @@ class Index extends MyfatoorahAction
             'CountryCode'  => $countryCode
         ];
 
-        $currency = $this->getCurrencyData($store, $gateway);
+        $currency = $this->getCurrencyData($store);
 
         //Invoice Items
         if ($mfShipping || $this->mfConfig->listInvoiceItems()) {
@@ -225,20 +226,18 @@ class Index extends MyfatoorahAction
      * Get the currency code and rate
      *
      * @param \Magento\Store\Model\Store $store
-     * @param string                     $gateway
      *
      * @return array
      */
-    private function getCurrencyData($store, $gateway = null)
+    private function getCurrencyData($store)
     {
-        $KWDcurrencyRate = (double) $store->getBaseCurrency()->getRate('KWD');
-        if ($gateway == 'kn' && !empty($KWDcurrencyRate)) {
-            $currencyCode = 'KWD';
-            $currencyRate = $KWDcurrencyRate;
+        $invoiceCurrency = $this->mfConfig->getInvoiceCurrency();
+        if ($invoiceCurrency == 'websites') {
+            $currencyCode = $store->getCurrentCurrencyCode();
+            $currencyRate = (double) $store->getCurrentCurrencyRate();
         } else {
             $currencyCode = $store->getBaseCurrencyCode();
             $currencyRate = 1;
-            //(double) getCurrentCurrencyRate;
         }
         return ['code' => $currencyCode, 'rate' => $currencyRate];
     }

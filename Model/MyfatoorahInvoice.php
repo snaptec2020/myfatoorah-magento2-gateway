@@ -7,6 +7,7 @@ use MyFatoorah\Gateway\Model\ResourceModel\MyfatoorahInvoice as MFResourceModel;
 
 class MyfatoorahInvoice extends AbstractModel
 {
+
     /**
      * @inheritdoc
      */

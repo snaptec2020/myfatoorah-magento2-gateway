@@ -4,7 +4,6 @@
  * Copyright © MyFatoorah. All rights reserved.
  * See GPL-3.0 for license details.
  */
-
 if (!defined('BP')) {
     // phpcs:ignore Magento2.Functions.DiscouragedFunction
     define('BP', dirname(getcwd()));

@@ -10,6 +10,7 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
 
 class WebHook
 {
+
     /**
      * @var ScopeConfigInterface
      */

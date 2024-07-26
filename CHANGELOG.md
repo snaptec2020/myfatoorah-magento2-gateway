@@ -3,15 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.2.7] - 2023-11-26
-- Fix the payment status link on the admin order page
-- Redirect to a new tab when clicking on the status link on the admin order page and the customer order page
+## [2.2.7] - 2023-12-07
+- New feature: add an option to the admin setting page to redirect the failed payment to the card page or the failure page
+- New feature: add an option to the admin setting page to select whether to create the MyFatoorah invoice using the default currency scope or the website scope
+- Fix the payment-status link on the admin order page
+- Redirect to a new tab when clicking on the payment-status link on the admin order page and the customer order page
 - Add code to translate the failed payment error
 - Add some translation messages
-- Add an option to the admin setting to redirect the failed payment to the card page or the failure page
 - Change the event name to be specific to MyFatoorah
-- Redirect to the success page with secure https
-- Hide the loader page if the one-step checkout fails to validate the form
+- Redirect to the process page with secure HTTPS and the order increment ID
+- Redirect to the success page with secure HTTPS and the order increment ID
+- Redirect to the failure page with secure HTTPS and the order increment ID
+- Hide the loader screen if the one-step checkout fails to validate the form
 
 ## [2.2.6] - 2023-09-4
 - Read the scripts path from the config file

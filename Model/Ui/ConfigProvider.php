@@ -11,6 +11,7 @@ use Magento\Checkout\Model\Cart;
 
 class ConfigProvider implements ConfigProviderInterface
 {
+
     /**
      * @var Config
      */
@@ -92,7 +93,7 @@ class ConfigProvider implements ConfigProviderInterface
     private function fillMultigatewaysData($config)
     {
 
-        $config['lang'] = $this->locale->getLangCode();
+        $config['lang']   = $this->locale->getLangCode();
         $config['isTest'] = $this->mfConfig->isTesting();
 
         $isApRegistered = $this->mfConfig->isApplePayRegistered();
@@ -104,11 +105,17 @@ class ConfigProvider implements ConfigProviderInterface
          */
         $quote = $this->cart->getQuote();
 
-        $baseTotal    = $quote->getBaseGrandTotal();
-        $baseCurrency = $quote->getBaseCurrencyCode();
+        $invoiceCurrency = $this->mfConfig->getInvoiceCurrency();
+        if ($invoiceCurrency == 'websites') {
+            $total    = $quote->getGrandTotal();
+            $currency = $quote->getCurrency()->getQuoteCurrencyCode();
+        } else {
+            $total    = $quote->getBaseGrandTotal();
+            $currency = $quote->getBaseCurrencyCode();
+        }
 
-        $config['baseGrandTotal'] = $baseTotal;
-        $config['paymentMethods'] = $mfObj->getCheckoutGateways($baseTotal, $baseCurrency, $isApRegistered);
+        $config['baseGrandTotal'] = $quote->getBaseGrandTotal();
+        $config['paymentMethods'] = $mfObj->getCheckoutGateways($total, $currency, $isApRegistered);
 
         $all = $config['paymentMethods']['all'];
         if (count($all) == 1) {

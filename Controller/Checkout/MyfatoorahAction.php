@@ -9,6 +9,7 @@ use Magento\Framework\App\Action\Context;
 
 abstract class MyfatoorahAction extends Action
 {
+
     /**
      *
      * @var Config
@@ -42,21 +43,25 @@ abstract class MyfatoorahAction extends Action
     //---------------------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Redirect to the cart with error
+     * Redirect to the cart/failure page with error
      *
      * @param string $error
+     * @param string $orderId
      *
      * @return \Magento\Framework\App\ResponseInterface
      */
-    protected function redirectToCartPage($error)
+    protected function redirectToCartPage($error, $orderId = '')
     {
+        //restore cart
+        $this->checkoutSession->restoreQuote();
+
         //trans the error
         $tranError = __($error);
         $this->messageManager->addErrorMessage($tranError);
 
         //redirect to cancel page with error
         $param = [
-            '_query' => "error=$tranError",
+            '_query'  => (empty($orderId) ? '' : "orderId=$orderId&") . "error=$tranError",
             '_secure' => $this->getRequest()->isSecure(),
         ];
 
@@ -66,7 +71,7 @@ abstract class MyfatoorahAction extends Action
         }
 
         //restore cart
-        $this->checkoutSession->restoreQuote();
+        //$this->checkoutSession->restoreQuote();
         return $this->_redirect('checkout/cart', $param);
     }
 

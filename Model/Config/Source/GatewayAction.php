@@ -4,6 +4,7 @@ namespace MyFatoorah\Gateway\Model\Config\Source;
 
 class GatewayAction implements \Magento\Framework\Option\ArrayInterface
 {
+
     /**
      * @inheritdoc
      */

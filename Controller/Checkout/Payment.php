@@ -12,6 +12,7 @@ use Exception as MFException;
 
 class Payment extends Action
 {
+
     /**
      * @var Config
      */
@@ -68,14 +69,20 @@ class Payment extends Action
             /**
              * @var \Magento\Quote\Model\Quote $quote
              */
-            $quote        = $this->cart->getQuote();
-            $baseCurrency = $quote->getBaseCurrencyCode();
+            $quote = $this->cart->getQuote();
 
-            $baseGrandTotal = $this->getRequest()->getParam('baseGrandTotal');
+            $invoiceCurrency = $this->mfConfig->getInvoiceCurrency();
+            if ($invoiceCurrency == 'websites') {
+                $total    = $quote->getGrandTotal();
+                $currency = $quote->getCurrency()->getQuoteCurrencyCode();
+            } else {
+                $total    = $quote->getBaseGrandTotal();
+                $currency = $quote->getBaseCurrencyCode();
+            }
 
             $mfObj = $this->mfConfig->getMyfatoorahObject(MyFatoorahPaymentEmbedded::class);
 
-            $paymentMethods = $mfObj->getCheckoutGateways($baseGrandTotal, $baseCurrency, $isApRegistered);
+            $paymentMethods = $mfObj->getCheckoutGateways($total, $currency, $isApRegistered);
             $error          = null;
         } catch (MFException $exc) {
             $paymentMethods = [];

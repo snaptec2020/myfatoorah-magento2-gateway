@@ -7,6 +7,7 @@ use Magento\Payment\Gateway\Http\TransferInterface;
 
 class RefundClient implements ClientInterface
 {
+
     /**
      * This is the place where requests to the Payment Gateway API are placed.
      * As we are a Redirect-based gateway and only used the "initialize" method,

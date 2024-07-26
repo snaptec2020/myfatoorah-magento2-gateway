@@ -9,6 +9,7 @@ namespace MyFatoorah\Gateway\Gateway\Config;
  */
 class Config extends \Magento\Payment\Gateway\Config\Config
 {
+
     public const CODE                                 = 'myfatoorah_payment';
     public const PLUGIN_VERSION                       = '2.2.6';
     public const KEY_ACTIVE                           = 'active';
@@ -24,6 +25,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     public const KEY_AUTOMATIC_INVOICE                = 'automatic_invoice';
     public const KEY_EMAIL_CUSTOMER                   = 'email_customer';
     public const KEY_FAILURE_PAGE                     = 'failurePage';
+    public const KEY_INVOICE_CURRENCY                 = 'invoiceCurrency';
 
     /**
      * Get Title
@@ -183,6 +185,16 @@ class Config extends \Magento\Payment\Gateway\Config\Config
     public function getFailurePage()
     {
         return $this->getValue(self::KEY_FAILURE_PAGE);
+    }
+
+    /**
+     * Get List Invoice Item
+     *
+     * @return boolean
+     */
+    public function getInvoiceCurrency()
+    {
+        return $this->getValue(self::KEY_INVOICE_CURRENCY);
     }
 
     /**

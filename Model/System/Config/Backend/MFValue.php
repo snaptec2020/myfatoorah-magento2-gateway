@@ -13,6 +13,7 @@ use Magento\Framework\Data\Collection\AbstractDb;
 
 class MFValue extends Value
 {
+
     /**
      * @var ManagerInterface
      */

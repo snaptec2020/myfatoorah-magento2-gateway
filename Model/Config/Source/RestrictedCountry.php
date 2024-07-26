@@ -11,6 +11,7 @@ use Magento\Directory\Model\ResourceModel\Country\Collection;
 
 class RestrictedCountry extends Country
 {
+
     /**
      * @param Collection $countryCollection
      */

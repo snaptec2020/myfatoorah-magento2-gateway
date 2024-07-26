@@ -8,6 +8,7 @@ use Magento\Payment\Gateway\Http\TransferInterface;
 
 class DummyTransferFactory implements TransferFactoryInterface
 {
+
     /**
      * @var TransferBuilder
      */

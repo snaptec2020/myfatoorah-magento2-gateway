@@ -89,9 +89,9 @@ define(
                     if (mfError) {
                         return false;
                     }
-                    
+
                     $('body').loader('show');
-                    
+
                     mfData = 'pm=' + paymentMethodId;
                     return self.PlaceOrderMyFatoorah();
                 },
@@ -101,7 +101,7 @@ define(
                     }
 
                     $('body').loader('show');
-                    
+
                     if (listOptions === 'myfatoorah' || paymentMethods.all.length === 0) {
                         mfData = 'pm=myfatoorah';
                         return self.PlaceOrderMyFatoorah();
@@ -145,7 +145,7 @@ define(
                         cache: false,
                         data: {
                             ajax: 1,
-                            baseGrandTotal: baseGrandTotalNew
+                            //baseGrandTotal: baseGrandTotalNew
                         },
                         type: "POST",
                         dataType: 'json'
@@ -313,9 +313,9 @@ define(
                         if (mfError) {
                             return false;
                         }
-                        
+
                         $('body').loader('show');
-                        
+
                         mfData = 'sid=' + response.sessionId;
                         return self.PlaceOrderMyFatoorah();
                     }
@@ -343,9 +343,9 @@ define(
                         if (mfError) {
                             return false;
                         }
-                        
+
                         $('body').loader('show');
-                        
+
                         mfData = 'sid=' + response.sessionId;
                         return self.PlaceOrderMyFatoorah();
                     }

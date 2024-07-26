@@ -12,6 +12,7 @@ use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Psr\Log\LoggerInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\Module\Manager;
 use Magento\Framework\Exception\LocalizedException;
@@ -23,6 +24,7 @@ use Exception as MFException;
 
 class Shipping extends AbstractCarrier implements CarrierInterface
 {
+
     /**
      * Carrier's code
      *
@@ -77,9 +79,9 @@ class Shipping extends AbstractCarrier implements CarrierInterface
 
     /**
      *
-     * @var StoreManagerInterface
+     * @var StoreInterface
      */
-    private $storeManager;
+    private $store;
 
     /**
      * @var \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory
@@ -114,7 +116,7 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
 
         $this->moduleManager = $moduleManager;
-        $this->storeManager  = $storeManager;
+        $this->store         = $storeManager->getStore();
 
         $this->rateResultFactory = $resultFactory;
         $this->rateMethodFactory = $methodFactory;
@@ -159,10 +161,17 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         MyFatoorah::log("---------------------------------------------------------------------------------------");
 
         try {
-            $currency = $this->storeManager->getStore()->getBaseCurrency()->getCode();
 
-            $mfListObj    = new MyFatoorahList($configData);
-            $currencyRate = $mfListObj->getCurrencyRate($currency);
+            if ($configData['invoiceCurrency'] == 'websites') {
+                $storeCurrency = $this->store->getCurrentCurrencyCode();
+                $storeRate     = $this->store->getCurrentCurrencyRate();
+            } else {
+                $storeCurrency = $this->store->getBaseCurrencyCode();
+                $storeRate     = 1;
+            }
+
+            $mfListObj          = new MyFatoorahList($configData);
+            $portalCurrencyRate = $mfListObj->getCurrencyRate($storeCurrency);
 
             $curlData = [
                 'Items'       => $this->getShippingInvoiceItems($request),
@@ -182,10 +191,15 @@ class Shipping extends AbstractCarrier implements CarrierInterface
 
                 $json = $sMFObj->calculateShippingCharge($curlData);
 
-                $realVal = floor($json->Fees * 1000) / 1000;
+                $portalAmount = floor($json->Fees * 1000) / 1000;
 
-                $shippingAmount = $currencyRate * $realVal;
-                $rateResult->append($this->createShippingMethod($shippingAmount, $id));
+                //convert the amount from portal currency to store current currency
+                $storeAmount = $portalCurrencyRate * $portalAmount;
+
+                //convert the amount from store current currency to store base currency
+                $finalAmount = $storeAmount / $storeRate;
+
+                $rateResult->append($this->createShippingMethod($finalAmount, $id));
             }
             return $rateResult;
         } catch (MFException $ex) {
@@ -270,7 +284,7 @@ class Shipping extends AbstractCarrier implements CarrierInterface
     {
         $scope = ScopeInterface::SCOPE_STORE;
 
-        $store   = $this->storeManager->getStore();
+        $store   = $this->store;
         $storeId = $store->getId();
 
         $module = $this->moduleManager;
@@ -283,10 +297,11 @@ class Shipping extends AbstractCarrier implements CarrierInterface
         }
 
         return [
-            'apiKey'      => $config->getValue($path . 'api_key', $scope, $storeId),
-            'isTest'      => (bool) $config->getValue($path . 'is_testing', $scope, $storeId),
-            'countryCode' => $config->getValue($path . 'countryMode', $scope, $storeId),
-            'loggerObj'   => MFSHIPPING_LOG_FILE
+            'apiKey'          => $config->getValue($path . 'api_key', $scope, $storeId),
+            'isTest'          => (bool) $config->getValue($path . 'is_testing', $scope, $storeId),
+            'countryCode'     => $config->getValue($path . 'countryMode', $scope, $storeId),
+            'loggerObj'       => MFSHIPPING_LOG_FILE,
+            'invoiceCurrency' => $config->getValue($path . 'invoiceCurrency', $scope, $storeId),
         ];
     }
 

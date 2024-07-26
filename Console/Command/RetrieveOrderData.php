@@ -18,6 +18,7 @@ use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 
 class RetrieveOrderData extends Command
 {
+
     /**
      *
      * @var string

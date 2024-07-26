@@ -13,6 +13,7 @@ namespace MyFatoorah\Gateway\Model\Config\Source;
  */
 class Methods implements \Magento\Framework\Option\ArrayInterface
 {
+
     /**
      * @inheritdoc
      */
