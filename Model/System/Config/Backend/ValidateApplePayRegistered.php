@@ -82,7 +82,7 @@ class ValidateApplePayRegistered extends MFValue
         $siteURL = $this->urlInterface->getCurrentUrl();
         try {
             $data = $mfObj->registerApplePayDomain($siteURL);
-            if ($data->Message == 'OK') {
+            if ($data->IsSuccess) {
                 return parent::beforeSave();
             }
             $err = $data->Message;
